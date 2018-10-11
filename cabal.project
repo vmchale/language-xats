@@ -1,0 +1,7 @@
+packages: ./
+
+constraints: language-xats +development
+
+program-options
+    happy-options: -gcsa
+    alex-options: -g
