@@ -13,7 +13,7 @@ description:
 category: Language, XATS
 build-type: Simple
 extra-source-files:
-    cabal.project.local
+    cabal.project
 extra-doc-files: README.md
                  CHANGELOG.md
 
