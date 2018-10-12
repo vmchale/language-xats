@@ -1,3 +1,8 @@
+-- Corresponding file: https://github.com/githwxi/ATS-Xanadu/blob/master/srcgen/xats/SATS/lexing.sats
+--
+-- This is incomplete and thus the above file contains various improvements of
+-- the module below.
+
 module Language.XATS.Lexer.Type ( Token (..)
                                 , Addendum (..)
                                 , Special (..)
@@ -109,5 +114,5 @@ data Token a = EOF { loc :: a }
 
              | TokInt { loc :: a, intStr :: Integer } -- ^ Base 10 integer
 
-             | TokKw a Keyword
+             | TokKeyword a Keyword
              | TokSpecial a Special
