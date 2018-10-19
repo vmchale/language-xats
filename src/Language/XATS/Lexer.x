@@ -28,6 +28,7 @@ tokens :-
     
     <0> $white+                  ;
     <0> "//".*                   ;
+    -- TODO: nested comments
 
     <0> as                       { mkKeyword As }
 

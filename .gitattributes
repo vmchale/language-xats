@@ -1,4 +1,6 @@
 *.cpphs linguist-language=Haskell
 *.hsc2hs linguist-language=Haskell
 *.c2hs linguist-language=Haskell
+*.y linguist-language=Happy
+*.x linguist-language=Alex
 *.gc linguist-language=Haskell
