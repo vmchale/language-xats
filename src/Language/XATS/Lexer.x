@@ -2,6 +2,7 @@
 
     {-# OPTIONS_GHC -fno-warn-unused-imports #-}
     module Language.XATS.Lexer ( alexMonadScan
+                               , runAlex
                                -- * Types
                                , AlexPosn (..)
                                , Alex (..)
