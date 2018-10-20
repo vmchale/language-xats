@@ -34,7 +34,6 @@ tokens :-
     <0> "/*"                     { \_ _ -> c_nested_comment }
     -- TODO: nested comments
 
-    <0> ".<"                     { mkSpecial DotLT }
     <0> ":<"                     { mkSpecial ColonLT }
     <0> \@                       { mkSpecial At }
     <0> \|                       { mkSpecial VBar }
@@ -51,7 +50,6 @@ tokens :-
     <0> "<>"                     { mkSpecial LtGt }
     <0> "><"                     { mkSpecial GtLt }
     <0> "-<"                     { mkSpecial MinusLt }
-    <0> "->"                     { mkSpecial MinusGt }
     <0> ">."                     { mkSpecial GtDot }
     <0> \,                       { mkSpecial Comma }
     <0> \;                       { mkSpecial Semicolon }
@@ -63,6 +61,7 @@ tokens :-
     <0> \[                       { mkSpecial LBracket }
     <0> \]                       { mkSpecial RBracket }
 
+    -- keywords are defined here: https://github.com/githwxi/ATS-Xanadu/blob/master/srcgen/xats/DATS/lexing_kword.dats
     <0> "fn0"                    { mkFun Fn0 }
     <0> fnx                      { mkFun Fnx }
     <0> "fn1"                    { mkFun Fn1 }

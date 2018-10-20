@@ -21,6 +21,18 @@ import Language.XATS.Type
 %token
 
     as { TokKeyword $$ As }
+    of { TokKeyword $$ Of }
+    op { TokKeyword $$ Op }
+    in { TokKeyword $$ In }
+    and { TokKeyword $$ And }
+    end { TokKeyword $$ End }
+    if { TokKeyword $$ If }
+    sif { TokKeyword $$ Sif }
+    then { TokKeyword $$ Then }
+    else { TokKeyword $$ Else }
+    when { TokKeyword $$ When }
+    with { TokKeyword $$ With }
+    case { $$@(TokKeyword _ Case{}) }
 
 %%
 

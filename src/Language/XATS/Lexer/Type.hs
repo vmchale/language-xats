@@ -1,7 +1,4 @@
 -- Corresponding file: https://github.com/githwxi/ATS-Xanadu/blob/master/srcgen/xats/SATS/lexing.sats
---
--- This is incomplete and thus the above file contains various improvements of
--- the module below.
 
 {-# LANGUAGE OverloadedStrings #-}
 module Language.XATS.Lexer.Type ( Token (..)
@@ -78,13 +75,13 @@ data Keyword = As
              | Else
              | When
              | With
-             | Case Addendum
+             | Case { addendum :: Addendum }
              | SCase
              | EndIf
              | EndsIf
              | EndCase
-             | Lam LambdaAdd
-             | Fix LambdaAdd
+             | Lam { lambdaAdd :: LambdaAdd }
+             | Fix { lambdaAdd :: LambdaAdd }
              | Let
              | Where
              | Local
@@ -92,11 +89,11 @@ data Keyword = As
              | EndLet
              | EndWhere
              | EndLocal
-             | Val Addendum
+             | Val { addendum :: Addendum }
              | PrVal
              | Var
-             | FunTok FunKind
-             | ImplTok ImplKind
+             | FunTok { funkind :: FunKind }
+             | ImplTok { implKind :: ImplKind }
              | SortDef
              | SExpDef -- @sexpdef@
              | PropDef
@@ -152,8 +149,8 @@ data Token a = EOF { loc :: a }
 
              | TokInt { loc :: a, intStr :: Integer } -- ^ Base 10 integer
 
-             | TokKeyword a Keyword
-             | TokSpecial a Special
+             | TokKeyword { loc :: a, keyword :: Keyword }
+             | TokSpecial { loc :: a, special :: Special }
 
 instance Pretty Addendum where
     pretty Plus  = "+"
