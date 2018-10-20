@@ -3,6 +3,7 @@
 -- This is incomplete and thus the above file contains various improvements of
 -- the module below.
 
+{-# LANGUAGE OverloadedStrings #-}
 module Language.XATS.Lexer.Type ( Token (..)
                                 , Addendum (..)
                                 , Special (..)
@@ -12,7 +13,8 @@ module Language.XATS.Lexer.Type ( Token (..)
                                 , ImplKind (..)
                                 ) where
 
-import qualified Data.ByteString.Lazy as BSL
+import qualified Data.ByteString.Lazy      as BSL
+import           Data.Text.Prettyprint.Doc
 
 data Addendum = None
               | Plus
@@ -120,9 +122,9 @@ data Keyword = As
              | WithProp
              | WithView
              | WithViewType
-             | Tuple -- ^ @$tup@
-             | TupleType -- ^ @$tup_t@
-             | TupleViewType -- ^ @$tup_vt@
+             | Tup -- ^ @$tup@
+             | TupType -- ^ @$tup_t@
+             | TupViewType -- ^ @$tup_vt@
              | Rec -- ^ @$rec@
              | RecType -- ^ @$rec_t@
              | RecViewType -- ^ @$rec_vt@
@@ -152,3 +154,105 @@ data Token a = EOF { loc :: a }
 
              | TokKeyword a Keyword
              | TokSpecial a Special
+
+instance Pretty Addendum where
+    pretty Plus  = "+"
+    pretty Minus = "-"
+    pretty None  = ""
+
+instance Pretty LambdaAdd where
+    pretty NoneLam = ""
+    pretty AtLam   = "@"
+
+instance Pretty FunKind where
+    pretty Fn0    = "fn0"
+    pretty Fnx    = "fnx"
+    pretty Fn1    = "fn1"
+    pretty Fun    = "fun"
+    pretty PrFn0  = "prfn0"
+    pretty PrFn1  = "prfn1"
+    pretty PrFun  = "prfun"
+    pretty Praxi  = "praxi"
+    pretty CastFn = "castfn"
+
+instance Pretty ImplKind where
+    pretty Impl   = "implement"
+    pretty PrImpl = "primplmnt"
+
+instance Pretty Keyword where
+    pretty As           = "as"
+    pretty Of           = "of"
+    pretty Op           = "op"
+    pretty In           = "in"
+    pretty And          = "and"
+    pretty End          = "end"
+    pretty If           = "if"
+    pretty Sif          = "sif"
+    pretty Then         = "then"
+    pretty Else         = "else"
+    pretty When         = "when"
+    pretty With         = "with"
+    pretty (Case add)   = "case" <> pretty add
+    pretty SCase        = "scase"
+    pretty EndIf        = "endif"
+    pretty EndsIf       = "endsif"
+    pretty EndCase      = "endcase"
+    pretty (Lam mAt)    = "lam" <> pretty mAt
+    pretty (Fix mAt)    = "fix" <> pretty mAt
+    pretty Let          = "let"
+    pretty Where        = "where"
+    pretty Local        = "local"
+    pretty EndLam       = "endlam"
+    pretty EndLet       = "endlet"
+    pretty EndWhere     = "endwhere"
+    pretty EndLocal     = "endlocal"
+    pretty (Val add)    = "val" <> pretty add
+    pretty PrVal        = "prval"
+    pretty Var          = "var"
+    pretty (FunTok f)   = pretty f
+    pretty (ImplTok i)  = pretty i
+    pretty SortDef      = "sortdef"
+    pretty SExpDef      = "sexpdef"
+    pretty PropDef      = "propdef"
+    pretty ViewDef      = "viewdef"
+    pretty TypeDef      = "typedef"
+    pretty ViewTypeDef  = "vtypedef"
+    pretty AbsProp      = "absprop"
+    pretty AbsView      = "absview"
+    pretty AbsType      = "abstype"
+    pretty AbsTBox      = "abstbox"
+    pretty AbsTFlat     = "abstflat"
+    pretty AbsViewType  = "absvtype"
+    pretty AbsVTBox     = "absvtbox"
+    pretty AbsVTFlat    = "absvtflat"
+    pretty AbsImpl      = "absimpl"
+    pretty AbsOpen      = "absopen"
+    pretty DataSort     = "datasort"
+    pretty DataProp     = "dataprop"
+    pretty DataView     = "dataview"
+    pretty DataType     = "datatype"
+    pretty DataViewType = "datavtype"
+    pretty WithType     = "withtype"
+    pretty WithProp     = "withprop"
+    pretty WithView     = "withview"
+    pretty WithViewType = "withvtype"
+    pretty Tup          = "$tup"
+    pretty TupType      = "$tup_t"
+    pretty TupViewType  = "$tup_vt"
+    pretty Rec          = "$rec"
+    pretty RecType      = "$rec_t"
+    pretty RecViewType  = "$rec_vt"
+    pretty Infix        = "#infix"
+    pretty Infix0       = "#infix0"
+    pretty Infixl       = "#infixl"
+    pretty Infixr       = "#infixr"
+    pretty Prefix       = "#prefix"
+    pretty Postfix      = "#postfix"
+    pretty Nonfix       = "#nonfix"
+    pretty Stacst       = "#stacst"
+    pretty Static       = "#static"
+    pretty Extern       = "#extern"
+    pretty Include      = "#include"
+    pretty Staload      = "#staload"
+    pretty Dynload      = "#dynload"
+    pretty Symload      = "#symload"

@@ -153,9 +153,9 @@ tokens :-
     <0> withview                 { mkKeyword WithView }
     <0> withvtype                { mkKeyword WithViewType }
 
-    <0> "$tup"                   { mkKeyword Tuple }
-    <0> "$tup_t"                 { mkKeyword TupleType }
-    <0> "$tup_vt"                { mkKeyword TupleViewType }
+    <0> "$tup"                   { mkKeyword Tup }
+    <0> "$tup_t"                 { mkKeyword TupType }
+    <0> "$tup_vt"                { mkKeyword TupViewType }
 
     <0> "$rec"                   { mkKeyword Rec }
     <0> "$rec_t"                 { mkKeyword RecType }
