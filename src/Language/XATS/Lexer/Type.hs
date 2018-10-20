@@ -35,9 +35,11 @@ data Special = DotLT -- ^ @.<@
              | Octothorpe -- @#@
              | LtEq -- ^ @<=@
              | GtEq -- ^ @>=@
+             | EqGt -- ^ @=>@
              | LtGt -- ^ @<>@
              | GtLt -- ^ @><@
              | MinusLt -- ^ @-<@
+             | MinusGt -- ^ @->@
              | GtDot -- ^ @>.@
              | Comma -- ^ @,@
              | Semicolon -- ^ @;@
@@ -81,6 +83,7 @@ data Keyword = As
              | EndCase
              | Lam LambdaAdd
              | Fix LambdaAdd
+             | Let
              | Where
              | Local
              | EndLam
@@ -93,9 +96,42 @@ data Keyword = As
              | FunTok FunKind
              | ImplTok ImplKind
              | SortDef
+             | SExpDef -- @sexpdef@
+             | PropDef
+             | ViewDef
+             | TypeDef
+             | ViewTypeDef
+             | AbsProp
+             | AbsView
+             | AbsType
+             | AbsTBox
+             | AbsTFlat
+             | AbsViewType
+             | AbsVTBox
+             | AbsVTFlat
              | AbsImpl
              | AbsOpen
              | DataSort
+             | DataProp
+             | DataView
+             | DataType
+             | DataViewType
+             | WithType
+             | WithProp
+             | WithView
+             | WithViewType
+             | Tuple -- ^ @$tup@
+             | TupleType -- ^ @$tup_t@
+             | TupleViewType -- ^ @$tup_vt@
+             | Rec -- ^ @$rec@
+             | RecType -- ^ @$rec_t@
+             | RecViewType -- ^ @$rec_vt@
+             | Infix
+             | Infix0
+             | Infixl
+             | Infixr
+             | Prefix
+             | Postfix
              | Nonfix -- ^ @#nonfix@
              | Stacst -- ^ @#stacst@
              | Static -- ^ @#static@
