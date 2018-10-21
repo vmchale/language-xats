@@ -1,13 +1,17 @@
 {
+    {-# LANGUAGE DeriveAnyClass #-}
+    {-# LANGUAGE DeriveGeneric  #-}
     module Language.XATS.Parser ( parse
                                 , ParseError (..)
                                 ) where
 
+import Control.DeepSeq (NFData)
 import Control.Monad.Except (ExceptT, runExceptT, throwError)
 import Control.Monad.Trans.Class (lift)
 import qualified Data.ByteString.Lazy as BSL
 import Data.Foldable (toList)
 import Data.List.NonEmpty (NonEmpty (..))
+import GHC.Generics (Generic)
 import Language.XATS.Lexer.Type
 import Language.XATS.Lexer
 import Language.XATS.Type
@@ -53,8 +57,7 @@ many(p)
     | { [] }
 
 some(p)
-    : some(p) p { $2 :| toList $1 }
-    | p { $1 :| [] }
+    : many(p) p { $2 :| $1 }
 
 parens(p)
     : lparen p rparen { $2 }
@@ -79,6 +82,7 @@ parseError = throwError . Unexpected
 
 data ParseError a = Unexpected (Token a)
                   | LexErr String
+                  deriving (Generic, NFData)
 
 type Parse = ExceptT (ParseError AlexPosn) Alex
 

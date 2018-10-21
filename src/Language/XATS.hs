@@ -1,7 +1,9 @@
 module Language.XATS
-    ( head'
+    ( -- * Types
+      XATS (..)
+    -- * Parsing
+    , parse
     ) where
 
-head' :: [a] -> Maybe a
-head' []    = Nothing
-head' (x:_) = Just x
+import           Language.XATS.Parser
+import           Language.XATS.Type

@@ -1,6 +1,9 @@
 {
 
     {-# OPTIONS_GHC -fno-warn-unused-imports #-}
+    {-# LANGUAGE StandaloneDeriving #-}
+    {-# LANGUAGE DeriveGeneric      #-}
+    {-# LANGUAGE DeriveAnyClass     #-}
     module Language.XATS.Lexer ( alexMonadScan
                                , runAlex
                                -- * Types
@@ -10,8 +13,10 @@
 
 import Control.Applicative
 import Control.Arrow ((&&&))
+import Control.DeepSeq (NFData)
 import qualified Data.ByteString.Lazy as BSL
 import qualified Data.ByteString.Lazy.Char8 as ASCII
+import GHC.Generics (Generic)
 import Language.XATS.Lexer.Type
 
 }
@@ -183,6 +188,9 @@ tokens :-
     <0> @integer                 { tok (\p s -> alex $ TokInt p (readBSL s)) }
 
 {
+
+deriving instance Generic AlexPosn
+deriving instance NFData AlexPosn
 
 ml_nested_comment = nested_comment 40 41
 

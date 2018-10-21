@@ -1,5 +1,7 @@
 -- Corresponding file: https://github.com/githwxi/ATS-Xanadu/blob/master/srcgen/xats/SATS/lexing.sats
 
+{-# LANGUAGE DeriveAnyClass    #-}
+{-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE OverloadedStrings #-}
 module Language.XATS.Lexer.Type ( Token (..)
                                 , Addendum (..)
@@ -10,16 +12,20 @@ module Language.XATS.Lexer.Type ( Token (..)
                                 , ImplKind (..)
                                 ) where
 
+import           Control.DeepSeq           (NFData)
 import qualified Data.ByteString.Lazy      as BSL
 import           Data.Text.Prettyprint.Doc
+import           GHC.Generics              (Generic)
 
 data Addendum = None
               | Plus
               | Minus
+              deriving (Eq, Generic, NFData)
 
 -- | Used to distinguish @fix\@@ from @fix@
 data LambdaAdd = NoneLam
                | AtLam
+               deriving (Eq, Generic, NFData)
 
 data Special = DotLT -- ^ @.<@
              | ColonLT -- ^ @:<@
@@ -49,6 +55,7 @@ data Special = DotLT -- ^ @.<@
              | RBrace -- ^ @}@
              | LBracket -- ^ @[@
              | RBracket -- ^ @]@
+             deriving (Eq, Generic, NFData)
 
 data FunKind = Fn0
              | Fnx
@@ -59,9 +66,11 @@ data FunKind = Fn0
              | PrFun
              | Praxi
              | CastFn
+             deriving (Eq, Generic, NFData)
 
 data ImplKind = Impl
               | PrImpl
+              deriving (Eq, Generic, NFData)
 
 data Keyword = As
              | Of
@@ -139,6 +148,7 @@ data Keyword = As
              | Staload -- ^ @#staload@
              | Dynload -- ^ @#dynload@
              | Symload -- ^ @#symload@
+             deriving (Eq, Generic, NFData)
 
 data Token a = EOF { loc :: a }
 
@@ -151,6 +161,8 @@ data Token a = EOF { loc :: a }
 
              | TokKeyword { loc :: a, keyword :: Keyword }
              | TokSpecial { loc :: a, special :: Special }
+
+             deriving (Eq, Generic, NFData)
 
 instance Pretty Addendum where
     pretty Plus  = "+"
