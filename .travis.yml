@@ -1,0 +1,21 @@
+---
+language: c
+cache:
+  directories:
+    - $HOME/.ghc
+    - $HOME/.cabal
+addons:
+  apt:
+    packages:
+      libgmp3-dev
+      - cabal-install-2.4
+      - ghc-8.6.1
+    sources:
+      - hvr-ghc
+
+install:
+  - export PATH=/opt/ghc/bin:$PATH
+  - cabal new-update
+
+script:
+  - cabal new-build
