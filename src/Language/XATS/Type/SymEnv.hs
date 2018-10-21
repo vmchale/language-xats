@@ -11,7 +11,7 @@ import qualified Data.Map             as M
 import           GHC.Generics         (Generic)
 import           GHC.Word             (Word8)
 
-type SymEnv a = M.Map (FixityNode a) Word8
+type SymEnv = M.Map (FixityNode ()) Word8
 
 data FixityNode a = Symbol a BSL.ByteString
                   | FixityIdent a BSL.ByteString

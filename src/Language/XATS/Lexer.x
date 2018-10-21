@@ -190,7 +190,6 @@ tokens :-
 
 {
 
-deriving instance Ord AlexPosn
 deriving instance Generic AlexPosn
 deriving instance NFData AlexPosn
 
@@ -230,7 +229,7 @@ nested_comment c1 c2 = go 1 =<< alexGetInput
 readBSL :: Read a => BSL.ByteString -> a
 readBSL = read . ASCII.unpack
 
-type AlexUserState = SymEnv AlexPosn
+type AlexUserState = SymEnv
 
 alexInitUserState :: AlexUserState
 alexInitUserState = mempty
