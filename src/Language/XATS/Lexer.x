@@ -11,6 +11,7 @@
 import Control.Applicative
 import Control.Arrow ((&&&))
 import qualified Data.ByteString.Lazy as BSL
+import qualified Data.ByteString.Lazy.Char8 as ASCII
 import Language.XATS.Lexer.Type
 
 }
@@ -25,6 +26,8 @@ $alpha = [$lower $upper]
 @sign = "-" | ""
 
 @integer = @sign $digit+
+
+@symbol = [\!\&\*\/\%\-\~\<\>\=\:\@\|]+
 
 tokens :-
     
@@ -176,6 +179,9 @@ tokens :-
     <0> "#dynload"               { mkKeyword Dynload }
     <0> "#symload"               { mkKeyword Symload }
 
+    <0> @symbol                  { tok (\p s -> alex $ IdentSym p s) }
+    <0> @integer                 { tok (\p s -> alex $ TokInt p (readBSL s)) }
+
 {
 
 ml_nested_comment = nested_comment 40 41
@@ -210,6 +216,9 @@ nested_comment c1 c2 = go 1 =<< alexGetInput
           err (pos,_,_,_) =
             let (AlexPn _ line col) = pos in
                 alexError ("Error in nested comment at line " ++ show line ++ ", column " ++ show col)
+
+readBSL :: Read a => BSL.ByteString -> a
+readBSL = read . ASCII.unpack
 
 type AlexUserState = ()
 

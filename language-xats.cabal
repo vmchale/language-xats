@@ -48,6 +48,9 @@ library
         transformers -any,
         prettyprinter -any
 
+    if !impl(ghc >= 8.0)
+      build-depends: semigroups
+
     if (flag(development) && impl(ghc >=7.2))
         ghc-options: -Werror
 
