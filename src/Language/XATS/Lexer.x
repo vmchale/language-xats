@@ -122,7 +122,7 @@ tokens :-
     <0> primplement              { mkKeyword (ImplTok PrImpl) }
 
     <0> sortdef                  { mkKeyword SortDef }
-    <0> sexpdef                  { mkKeyword SExpDef }
+    <0> sexpdef                  { mkKeyword StaExpDef }
     <0> propdef                  { mkKeyword PropDef }
     <0> viewdef                  { mkKeyword ViewDef }
     <0> typedef                  { mkKeyword TypeDef }

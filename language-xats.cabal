@@ -51,7 +51,7 @@ library
     if !impl(ghc >= 8.0)
       build-depends: semigroups
 
-    if (flag(development) && impl(ghc >=7.2))
+    if (flag(development) && impl(ghc <=7.10))
         ghc-options: -Werror
 
     if impl(ghc >=8.0)

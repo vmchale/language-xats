@@ -95,7 +95,7 @@ data Keyword = As
              | FunTok { funkind :: FunKind }
              | ImplTok { implKind :: ImplKind }
              | SortDef
-             | SExpDef -- @sexpdef@
+             | StaExpDef -- @sexpdef@
              | PropDef
              | ViewDef
              | TypeDef
@@ -209,7 +209,7 @@ instance Pretty Keyword where
     pretty (FunTok f)   = pretty f
     pretty (ImplTok i)  = pretty i
     pretty SortDef      = "sortdef"
-    pretty SExpDef      = "sexpdef"
+    pretty StaExpDef    = "sexpdef"
     pretty PropDef      = "propdef"
     pretty ViewDef      = "viewdef"
     pretty TypeDef      = "typedef"
