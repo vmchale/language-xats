@@ -9,11 +9,11 @@ module Language.XATS.Type ( Declaration (..)
                           , SymEnv
                           ) where
 
-import           Control.DeepSeq      (NFData)
-import qualified Data.ByteString.Lazy as BSL
-import           Data.List.NonEmpty   (NonEmpty (..))
-import           GHC.Generics         (Generic)
-import           GHC.Word             (Word8)
+import           Control.DeepSeq           (NFData)
+import qualified Data.ByteString.Lazy      as BSL
+import           Data.List.NonEmpty        (NonEmpty (..))
+import           GHC.Generics              (Generic)
+import           GHC.Word                  (Word8)
 import           Language.XATS.Type.SymEnv
 
 newtype XATS a = XATS [Declaration a]
