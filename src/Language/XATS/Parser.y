@@ -70,7 +70,7 @@ FixityRes : intLit { IntFix (loc $1) (fromIntegral $ intStr $1) }
 
 FixityNode : symIdent { Symbol (loc $1) (ident $1) }
 
-Fixity : FixityRes some(FixityNode) { Fixity (locFixRes $1) $1 $2 }
+Fixity : FixityRes some(FixityNode) { Fixity $1 $2 }
 
 Declaration : prefix Fixity { PrefixDecl $1 $2 }
             | infixl Fixity { InfixlDecl $1 $2 }

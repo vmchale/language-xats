@@ -18,6 +18,7 @@ import qualified Data.ByteString.Lazy as BSL
 import qualified Data.ByteString.Lazy.Char8 as ASCII
 import GHC.Generics (Generic)
 import Language.XATS.Lexer.Type
+import Language.XATS.Type.SymEnv
 
 }
 
@@ -189,6 +190,7 @@ tokens :-
 
 {
 
+deriving instance Ord AlexPosn
 deriving instance Generic AlexPosn
 deriving instance NFData AlexPosn
 
@@ -228,10 +230,10 @@ nested_comment c1 c2 = go 1 =<< alexGetInput
 readBSL :: Read a => BSL.ByteString -> a
 readBSL = read . ASCII.unpack
 
-type AlexUserState = ()
+type AlexUserState = SymEnv AlexPosn
 
 alexInitUserState :: AlexUserState
-alexInitUserState = ()
+alexInitUserState = mempty
 
 gets_alex :: (AlexState -> a) -> Alex a
 gets_alex f = Alex (Right . (id &&& f))
