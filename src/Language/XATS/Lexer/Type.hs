@@ -134,13 +134,13 @@ data Keyword = As
              | Rec -- ^ @$rec@
              | RecType -- ^ @$rec_t@
              | RecViewType -- ^ @$rec_vt@
-             | Infix
-             | Infix0
-             | Infixl
-             | Infixr
-             | Prefix
-             | Postfix
-             | Nonfix -- ^ @#nonfix@
+             | KwInfix
+             | KwInfix0
+             | KwInfixl
+             | KwInfixr
+             | KwPrefix
+             | KwPostfix
+             | KwNonfix -- ^ @#nonfix@
              | Stacst -- ^ @#stacst@
              | Static -- ^ @#static@
              | Extern -- ^ @#extern@
@@ -251,13 +251,13 @@ instance Pretty Keyword where
     pretty Rec          = "$rec"
     pretty RecType      = "$rec_t"
     pretty RecViewType  = "$rec_vt"
-    pretty Infix        = "#infix"
-    pretty Infix0       = "#infix0"
-    pretty Infixl       = "#infixl"
-    pretty Infixr       = "#infixr"
-    pretty Prefix       = "#prefix"
-    pretty Postfix      = "#postfix"
-    pretty Nonfix       = "#nonfix"
+    pretty KwInfix      = "#infix"
+    pretty KwInfix0     = "#infix0"
+    pretty KwInfixl     = "#infixl"
+    pretty KwInfixr     = "#infixr"
+    pretty KwPrefix     = "#prefix"
+    pretty KwPostfix    = "#postfix"
+    pretty KwNonfix     = "#nonfix"
     pretty Stacst       = "#stacst"
     pretty Static       = "#static"
     pretty Extern       = "#extern"

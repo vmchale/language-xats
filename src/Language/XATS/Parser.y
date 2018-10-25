@@ -43,8 +43,12 @@ import Language.XATS.Type
     with { TokKeyword $$ With }
     case { $$@(TokKeyword _ Case{}) }
 
-    prefix { TokKeyword $$ Prefix }
-    infixl { TokKeyword $$ Infixl }
+    prefix { TokKeyword $$ KwPrefix }
+    infixl { TokKeyword $$ KwInfixl }
+    infixr { TokKeyword $$ KwInfixr }
+    infix0 { TokKeyword $$ KwInfix0 }
+    postfix { TokKeyword $$ KwPostfix }
+    nonfix { TokKeyword $$ KwNonfix }
 
     intLit { $$@TokInt{} }
 
@@ -70,7 +74,7 @@ FixityRes : intLit { IntFix (loc $1) (fromIntegral $ intStr $1) }
 
 FixityNode : symIdent { Symbol (loc $1) (ident $1) }
 
-Fixity : FixityRes some(FixityNode) { Fixity $1 $2 }
+Fixity : FixityRes some(FixityNode) { FixityD $1 $2 }
 
 Declaration : prefix Fixity { PrefixDecl $1 $2 }
             | infixl Fixity { InfixlDecl $1 $2 }

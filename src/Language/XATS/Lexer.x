@@ -169,13 +169,13 @@ tokens :-
     <0> "$rec_t"                 { mkKeyword RecType }
     <0> "$rec_vt"                { mkKeyword RecViewType }
 
-    <0> "#infix"                 { mkKeyword Infix }
-    <0> "#infix0"                { mkKeyword Infix0 }
-    <0> "#infixl"                { mkKeyword Infixl }
-    <0> "#infixr"                { mkKeyword Infixr }
-    <0> "#prefix"                { mkKeyword Prefix }
-    <0> "#postfix"               { mkKeyword Postfix }
-    <0> "#nonfix"                { mkKeyword Nonfix }
+    <0> "#infix"                 { mkKeyword KwInfix }
+    <0> "#infix0"                { mkKeyword KwInfix0 }
+    <0> "#infixl"                { mkKeyword KwInfixl }
+    <0> "#infixr"                { mkKeyword KwInfixr }
+    <0> "#prefix"                { mkKeyword KwPrefix }
+    <0> "#postfix"               { mkKeyword KwPostfix }
+    <0> "#nonfix"                { mkKeyword KwNonfix }
 
     <0> "#stacst"                { mkKeyword Stacst }
     <0> "#static"                { mkKeyword Static }

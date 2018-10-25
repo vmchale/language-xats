@@ -4,8 +4,8 @@
 module Language.XATS.Type ( Declaration (..)
                           , XATS (..)
                           , FixityNode (..)
-                          , Fixity (..)
                           , FixityRes (..)
+                          , FixityD (..)
                           , SymEnv
                           ) where
 
@@ -22,16 +22,17 @@ newtype XATS a = XATS [Declaration a]
 -- | Allows both @#prefix 99 !@ and @#infixl ( && ) andalso land@
 data FixityRes a = IntFix a Word8
                  | SymbolFix a BSL.ByteString
+                 -- TODO: handle https://github.com/githwxi/ATS-Xanadu/blob/master/prelude/fixity.sats#L136<Paste>
                  deriving (Eq, Generic, NFData)
                -- TODO: parens? https://github.com/githwxi/ATS-Xanadu/blob/master/srcgen/xats/TEST/DATA/syntax_sta.sats#L111
 
-data Fixity a = Fixity (FixityRes a) (NonEmpty (FixityNode a))
+data FixityD a = FixityD (FixityRes a) (NonEmpty (FixityNode a))
               deriving (Eq, Generic, NFData)
 
-data Declaration a = PrefixDecl a (Fixity a)
-                   | Infix0Decl a (Fixity a)
-                   | InfixrDecl a (Fixity a)
-                   | InfixDecl a (Fixity a)
-                   | InfixlDecl a (Fixity a)
-                   | PostfixDecl a (Fixity a)
+data Declaration a = PrefixDecl a (FixityD a)
+                   | Infix0Decl a (FixityD a)
+                   | InfixrDecl a (FixityD a)
+                   | InfixDecl a (FixityD a)
+                   | InfixlDecl a (FixityD a)
+                   | PostfixDecl a (FixityD a)
                    deriving (Eq, Generic, NFData)
