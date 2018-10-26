@@ -6,8 +6,16 @@ module Language.XATS.Type ( Declaration (..)
                           , FixityNode (..)
                           , FixityRes (..)
                           , FixityD (..)
-                          , SymEnv
                           , Expression (..)
+                          -- * Reëxports
+                          , SymEnv
+                          , Token (..)
+                          , Special (..)
+                          , Keyword (..)
+                          , Addendum (..)
+                          , LambdaAdd (..)
+                          , FunFlavor (..)
+                          , ImplFlavor (..)
                           ) where
 
 import           Control.DeepSeq           (NFData)
@@ -15,6 +23,7 @@ import qualified Data.ByteString.Lazy      as BSL
 import           Data.List.NonEmpty        (NonEmpty (..))
 import           GHC.Generics              (Generic)
 import           GHC.Word                  (Word8)
+import           Language.XATS.Type.Lexer
 import           Language.XATS.Type.SymEnv
 
 newtype XATS a = XATS [Declaration a]

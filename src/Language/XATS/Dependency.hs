@@ -7,6 +7,7 @@ import qualified Data.Text                as T
 import           Language.XATS.Lexer
 import           Language.XATS.Type.Lexer
 
+-- | Exported for testing purposes
 extractDeps :: BSL.ByteString
             -> Either LexerError [T.Text]
 extractDeps = fmap extractTokDeps . lexXATS

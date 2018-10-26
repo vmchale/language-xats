@@ -8,8 +8,8 @@ module Language.XATS.Type.Lexer ( Token (..)
                                 , Special (..)
                                 , Keyword (..)
                                 , LambdaAdd (..)
-                                , FunKind (..)
-                                , ImplKind (..)
+                                , FunFlavor (..)
+                                , ImplFlavor (..)
                                 ) where
 
 import           Control.DeepSeq           (NFData)
@@ -58,24 +58,24 @@ data Special = DotLT -- ^ @.<@
              | RBracket -- ^ @]@
              deriving (Eq, Generic, NFData)
 
-data FunKind = Fn0
-             | Fnx
-             | Fn1
-             | Fun
-             | PrFn0
-             | PrFn1
-             | PrFun
-             | Praxi
-             | CastFn
-             deriving (Eq, Generic, NFData)
+data FunFlavor = Fn0
+               | Fnx
+               | Fn1
+               | Fun
+               | PrFn0
+               | PrFn1
+               | PrFun
+               | Praxi
+               | CastFn
+               deriving (Eq, Generic, NFData)
 
-data ImplKind = Impl
-              | PrImpl
-              deriving (Eq, Generic, NFData)
+data ImplFlavor = Impl
+                | PrImpl
+                deriving (Eq, Generic, NFData)
 
 data Keyword = As
              | Of
-             | Op -- ^ @op@
+             | Op
              | In
              | And
              | End
@@ -102,8 +102,8 @@ data Keyword = As
              | Val { addendum :: Addendum }
              | PrVal
              | Var
-             | FunTok { funkind :: FunKind }
-             | ImplTok { implKind :: ImplKind }
+             | FunTok { funkind :: FunFlavor }
+             | ImplTok { implKind :: ImplFlavor }
              | SortDef
              | StaExpDef -- @sexpdef@
              | PropDef
@@ -175,7 +175,7 @@ instance Pretty LambdaAdd where
     pretty NoneLam = ""
     pretty AtLam   = "@"
 
-instance Pretty FunKind where
+instance Pretty FunFlavor where
     pretty Fn0    = "fn0"
     pretty Fnx    = "fnx"
     pretty Fn1    = "fn1"
@@ -186,7 +186,7 @@ instance Pretty FunKind where
     pretty Praxi  = "praxi"
     pretty CastFn = "castfn"
 
-instance Pretty ImplKind where
+instance Pretty ImplFlavor where
     pretty Impl   = "implement"
     pretty PrImpl = "primplmnt"
 

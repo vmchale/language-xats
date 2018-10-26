@@ -5,6 +5,6 @@ import           Test.Hspec
 
 main :: IO ()
 main = hspec $ parallel $
-    describe "parse" $
-        it "works on prefix" $
-            parse "#prefix 99 !" `shouldBe` Right (XATS [])
+    describe "extractDeps" $
+        it "works" $
+            extractDeps "#symload \'file.sats\"" `shouldBe` Right ["file.sats"]
