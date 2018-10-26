@@ -151,6 +151,8 @@ data Keyword = As
              | Symload -- ^ @#symload@
              deriving (Eq, Generic, NFData)
 
+-- | This corresponds to @tnode@, defined
+-- [here](https://github.com/githwxi/ATS-Xanadu/blob/master/srcgen/xats/SATS/lexing.sats#L52).
 data Token a = EOF { loc :: a }
 
              | IdentAlpha { loc :: a, ident :: BSL.ByteString } -- ^ Alphanumeric identifier

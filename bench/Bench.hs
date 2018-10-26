@@ -9,6 +9,8 @@ import           Language.XATS
 tinyProgram :: BSL.ByteString
 tinyProgram = "#prefix 99 !"
 
+-- TODO: benchmark dependency extraction
+
 main :: IO ()
 main =
     defaultMain [ bgroup "parse"

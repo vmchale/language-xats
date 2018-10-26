@@ -19,4 +19,6 @@ install:
 
 script:
   - cabal new-build
+  - cabal new-haddock
   - cabal new-test
+  - cabal new-bench

@@ -1,9 +1,10 @@
 {
 
     {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-    {-# LANGUAGE StandaloneDeriving #-}
     {-# LANGUAGE DeriveGeneric      #-}
     {-# LANGUAGE DeriveAnyClass     #-}
+    {-# LANGUAGE OverloadedStrings  #-}
+    {-# LANGUAGE StandaloneDeriving #-}
     module Language.XATS.Lexer ( alexMonadScan
                                , runAlex
                                , lexXATS
@@ -18,6 +19,8 @@ import Control.Arrow ((&&&))
 import Control.DeepSeq (NFData)
 import qualified Data.ByteString.Lazy as BSL
 import qualified Data.ByteString.Lazy.Char8 as ASCII
+import qualified Data.Text as T
+import Data.Text.Encoding (decodeUtf8)
 import GHC.Generics (Generic)
 import Language.XATS.Type.Lexer
 import Language.XATS.Type.SymEnv
@@ -27,6 +30,7 @@ import Language.XATS.Type.SymEnv
 %wrapper "monadUserState-bytestring"
 
 $digit = [0-9]
+$hexit = [0-9 a-f A-F]
 $lower = [a-z]
 $upper = [A-Z]
 $alpha = [$lower $upper]
@@ -35,7 +39,17 @@ $alpha = [$lower $upper]
 
 @integer = @sign $digit+
 
-@symbol = [\!\&\*\/\%\-\~\<\>\=\:\@\|]+
+-- loosely based on: https://github.com/githwxi/ATS-Xanadu/blob/master/srcgen/xats/DATS/lexing_util0.dats#L1245
+@escape_str = \\ [\\\"]
+
+-- see: https://github.com/githwxi/ATS-Xanadu/blob/master/srcgen/xats/DATS/lexing_util0.dats#L174
+$identifier_char = [$alpha $digit \_ \' \$]
+@identifier = ($lower | $upper | \_) $identifier_char*
+
+@string = \" ([^\"\\] | @escape_str)* \"
+
+-- see: https://github.com/githwxi/ATS-Xanadu/blob/master/srcgen/xats/DATS/lexing_util0.dats#L184
+@symbol = [\!\&\*\/\%\-\~\<\>\=\:\@\|\?\#\`\+\^]+
 
 tokens :-
     
@@ -187,13 +201,24 @@ tokens :-
     <0> "#dynload"               { mkKeyword Dynload }
     <0> "#symload"               { mkKeyword Symload }
 
+    <0> @identifier              { tok (\p s -> alex $ IdentAlpha p s) }
+    <0> \# @identifier           { tok (\p s -> alex $ IdentOctothorpe p (BSL.drop 1 s)) }
+    <0> \$ @identifier           { tok (\p s -> alex $ IdentDollar p (BSL.drop 1 s)) }
     <0> @symbol                  { tok (\p s -> alex $ IdentSym p s) }
+
+    <0> @string                  { tok (\p s -> alex $ TokString p (strProcess s)) }
+
     <0> @integer                 { tok (\p s -> alex $ TokInt p (readBSL s)) }
 
 {
 
 deriving instance Generic AlexPosn
 deriving instance NFData AlexPosn
+
+-- FIXME: replace \\ with \ and \" with "
+strProcess :: BSL.ByteString -> T.Text
+strProcess = replacements . decodeUtf8 . BSL.toStrict . BSL.drop 1 . BSL.init
+    where replacements = T.replace "\\\\" "\\" . T.replace "\\\"" "\""
 
 ml_nested_comment = nested_comment 40 41
 
