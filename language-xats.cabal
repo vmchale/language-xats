@@ -36,7 +36,7 @@ library
         Language.XATS.Type
         Language.XATS.Parser
         Language.XATS.Lexer
-        Language.XATS.Lexer.Type
+        Language.XATS.Type.Lexer
         Language.XATS.Type.SymEnv
         Language.XATS.Rewrite
         Language.XATS.Dependency
@@ -52,7 +52,8 @@ library
         transformers -any,
         prettyprinter -any,
         deepseq -any,
-        containers
+        containers,
+        text
 
     if !impl(ghc >=8.0)
         build-depends:

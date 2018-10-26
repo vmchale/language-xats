@@ -11,9 +11,6 @@
                                , AlexPosn (..)
                                , Alex (..)
                                , LexerError
-                               , Token (..)
-                               , Keyword (..)
-                               , Special (..)
                                ) where
 
 import Control.Applicative
@@ -22,7 +19,7 @@ import Control.DeepSeq (NFData)
 import qualified Data.ByteString.Lazy as BSL
 import qualified Data.ByteString.Lazy.Char8 as ASCII
 import GHC.Generics (Generic)
-import Language.XATS.Lexer.Type
+import Language.XATS.Type.Lexer
 import Language.XATS.Type.SymEnv
 
 }

@@ -3,7 +3,7 @@
 {-# LANGUAGE DeriveAnyClass    #-}
 {-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE OverloadedStrings #-}
-module Language.XATS.Lexer.Type ( Token (..)
+module Language.XATS.Type.Lexer ( Token (..)
                                 , Addendum (..)
                                 , Special (..)
                                 , Keyword (..)
@@ -14,6 +14,7 @@ module Language.XATS.Lexer.Type ( Token (..)
 
 import           Control.DeepSeq           (NFData)
 import qualified Data.ByteString.Lazy      as BSL
+import qualified Data.Text                 as T
 import           Data.Text.Prettyprint.Doc
 import           GHC.Generics              (Generic)
 
@@ -158,6 +159,7 @@ data Token a = EOF { loc :: a }
              | IdentDollar { loc :: a, ident :: BSL.ByteString } -- ^ Identifier with a @$@ in front
 
              | TokInt { loc :: a, intStr :: Integer } -- ^ Base 10 integer
+             | TokString { loc :: a, contents :: T.Text }
 
              | TokKeyword { loc :: a, keyword :: Keyword }
              | TokSpecial { loc :: a, special :: Special }

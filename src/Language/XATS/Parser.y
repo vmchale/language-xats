@@ -12,7 +12,7 @@ import qualified Data.ByteString.Lazy as BSL
 import Data.Foldable (toList)
 import Data.List.NonEmpty (NonEmpty (..))
 import GHC.Generics (Generic)
-import Language.XATS.Lexer.Type
+import Language.XATS.Type.Lexer
 import Language.XATS.Lexer
 import Language.XATS.Type
 
