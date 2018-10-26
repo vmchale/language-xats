@@ -6,9 +6,14 @@
     {-# LANGUAGE DeriveAnyClass     #-}
     module Language.XATS.Lexer ( alexMonadScan
                                , runAlex
+                               , lexXATS
                                -- * Types
                                , AlexPosn (..)
                                , Alex (..)
+                               , LexerError
+                               , Token (..)
+                               , Keyword (..)
+                               , Special (..)
                                ) where
 
 import Control.Applicative
@@ -254,5 +259,17 @@ mkFun = mkKeyword . FunTok
 mkSpecial = constructor TokSpecial
 
 mkKeyword = constructor TokKeyword
+
+loop :: Alex [Token AlexPosn]
+loop = do
+    tok' <- alexMonadScan
+    case tok' of
+        EOF{} -> pure []
+        _     -> (tok' :) <$> loop
+
+type LexerError = String
+
+lexXATS :: BSL.ByteString -> Either LexerError [Token AlexPosn]
+lexXATS = flip runAlex loop
 
 }

@@ -7,6 +7,7 @@ module Language.XATS.Type ( Declaration (..)
                           , FixityRes (..)
                           , FixityD (..)
                           , SymEnv
+                          , Expression (..)
                           ) where
 
 import           Control.DeepSeq           (NFData)
@@ -29,6 +30,11 @@ data FixityRes a = IntFix a Word8
 data FixityD a = FixityD (FixityRes a) (NonEmpty (FixityNode a))
               deriving (Eq, Generic, NFData)
 
+-- TODO: separate dynamic/static expressions
+data Expression a = IntLit a Integer
+                  | DoubleLit a Double
+
+-- FIXME: generalize these?
 data Declaration a = PrefixDecl a (FixityD a)
                    | Infix0Decl a (FixityD a)
                    | InfixrDecl a (FixityD a)

@@ -42,6 +42,9 @@ import Language.XATS.Type
     when { TokKeyword $$ When }
     with { TokKeyword $$ With }
     case { $$@(TokKeyword _ Case{}) }
+    scase { TokKeyword $$ SCase }
+    endif { TokKeyword $$ EndIf }
+    endcase { TokKeyword $$ EndCase }
 
     prefix { TokKeyword $$ KwPrefix }
     infixl { TokKeyword $$ KwInfixl }
