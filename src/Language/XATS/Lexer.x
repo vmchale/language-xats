@@ -5,6 +5,7 @@
     {-# LANGUAGE DeriveAnyClass     #-}
     {-# LANGUAGE OverloadedStrings  #-}
     {-# LANGUAGE StandaloneDeriving #-}
+
     module Language.XATS.Lexer ( alexMonadScan
                                , runAlex
                                , lexXATS
@@ -215,9 +216,8 @@ tokens :-
 deriving instance Generic AlexPosn
 deriving instance NFData AlexPosn
 
--- FIXME: replace \\ with \ and \" with "
 strProcess :: BSL.ByteString -> T.Text
-strProcess = replacements . decodeUtf8 . BSL.toStrict . BSL.drop 1 . BSL.init
+strProcess = replacements . decodeUtf8 . BSL.toStrict . BSL.init . BSL.drop 1
     where replacements = T.replace "\\\\" "\\" . T.replace "\\\"" "\""
 
 ml_nested_comment = nested_comment 40 41
