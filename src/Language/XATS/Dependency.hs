@@ -20,7 +20,7 @@ getDeps fp = do
     contents' <- BSL.readFile fp
     let dot = takeDirectory fp
         dotdot = takeDirectory dot
-        proc = T.replace "../" (T.pack (dotdot <> "/")) . T.replace "./" (T.pack (dot <> "/"))
+        proc = T.replace "../" (T.pack (dotdot ++ "/")) . T.replace "./" (T.pack (dot ++ "/"))
     processed <- either prErr pure (extractDeps contents')
     let procFps = proc <$> processed
     filterM doesFileExist (T.unpack <$> procFps)

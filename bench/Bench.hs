@@ -16,5 +16,5 @@ main =
     defaultMain [ bgroup "parse"
                       [ bench "parse" $ nf parse tinyProgram ]
                 , bgroup "getDeps"
-                      [ bench "getDeps" $ nfIO (getDeps "test/deps/file.sats") ]
+                      [ bench "getDeps" $ nfIO (getDeps "test/deps/file.dats") ]
                 ]
