@@ -13,13 +13,14 @@ import           System.Directory         (doesFileExist)
 import           System.Exit              (exitFailure)
 import           System.FilePath          (takeDirectory)
 
+-- | Get immediate dependencies of a file
 getDeps :: FilePath
         -> IO [FilePath]
 getDeps fp = do
     contents' <- BSL.readFile fp
     let dot = takeDirectory fp
         dotdot = takeDirectory dot
-        proc = T.replace "./" (T.pack (dot <> "/")) . T.replace "../" (T.pack (dotdot <> "/"))
+        proc = T.replace "../" (T.pack (dotdot <> "/")) . T.replace "./" (T.pack (dot <> "/"))
     processed <- either prErr pure (extractDeps contents')
     let procFps = proc <$> processed
     filterM doesFileExist (T.unpack <$> procFps)
@@ -27,7 +28,6 @@ getDeps fp = do
 prErr :: LexerError -> IO a
 prErr = (*> exitFailure) . putStrLn
 
--- | Exported for testing purposes
 extractDeps :: BSL.ByteString
             -> Either LexerError [T.Text]
 extractDeps = fmap extractTokDeps . lexXATS
