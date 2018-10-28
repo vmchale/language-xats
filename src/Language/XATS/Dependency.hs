@@ -1,8 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 -- | Dependency analysis for ATS.
-module Language.XATS.Dependency ( extractDeps
-                                , getDeps
+module Language.XATS.Dependency ( getDeps
                                 ) where
 
 import           Control.Monad            (filterM)
@@ -20,13 +19,13 @@ getDeps fp = do
     contents' <- BSL.readFile fp
     let dot = takeDirectory fp
         dotdot = takeDirectory dot
-        proc = T.replace "/./" (T.pack ("/" <> dot <> "/")) . T.replace "/../" (T.pack ("/" <> dotdot <> "/"))
+        proc = T.replace "./" (T.pack (dot <> "/")) . T.replace "../" (T.pack (dotdot <> "/"))
     processed <- either prErr pure (extractDeps contents')
     let procFps = proc <$> processed
     filterM doesFileExist (T.unpack <$> procFps)
 
 prErr :: LexerError -> IO a
-prErr err = putStrLn err *> exitFailure
+prErr = (*> exitFailure) . putStrLn
 
 -- | Exported for testing purposes
 extractDeps :: BSL.ByteString

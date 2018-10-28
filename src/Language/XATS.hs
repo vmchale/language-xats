@@ -16,7 +16,7 @@ module Language.XATS
     -- * Lexing
     , lexXATS
     -- * Dependency analysis
-    , extractDeps
+    , getDeps
     ) where
 
 import           Language.XATS.Dependency

@@ -5,6 +5,6 @@ import           Test.Hspec
 
 main :: IO ()
 main = hspec $ parallel $
-    describe "extractDeps" $
+    describe "getDeps" $
         it "works on a trivial example" $
-            extractDeps "#prefix 99 !\n#symload \"file.sats\"" `shouldBe` Right ["file.sats"]
+            getDeps "test/deps/file.dats" >>= (`shouldBe` ["test/deps/file.sats"])
