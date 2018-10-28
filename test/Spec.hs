@@ -7,4 +7,4 @@ main :: IO ()
 main = hspec $ parallel $
     describe "extractDeps" $
         it "works on a trivial example" $
-            extractDeps "#symload \"file.sats\"" `shouldBe` Right ["file.sats"]
+            extractDeps "#prefix 99 !\n#symload \"file.sats\"" `shouldBe` Right ["file.sats"]

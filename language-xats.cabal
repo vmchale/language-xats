@@ -53,6 +53,8 @@ library
         prettyprinter -any,
         deepseq -any,
         containers,
+        directory,
+        filepath,
         text
 
     if !impl(ghc >=8.0)
