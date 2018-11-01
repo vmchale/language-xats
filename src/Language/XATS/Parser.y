@@ -1,6 +1,8 @@
 {
     {-# LANGUAGE DeriveAnyClass #-}
     {-# LANGUAGE DeriveGeneric  #-}
+    -- | See [here](https://github.com/githwxi/ATS-Xanadu/blob/master/srcgen/xats/SATS/staexp0.sats#L300)
+    -- for the upstream version
     module Language.XATS.Parser ( parse
                                 , ParseError (..)
                                 ) where
@@ -79,8 +81,10 @@ FixityNode : symIdent { Symbol (loc $1) (ident $1) }
 
 Fixity : FixityRes some(FixityNode) { FixityD $1 $2 }
 
-Declaration : prefix Fixity { PrefixDecl $1 $2 }
-            | infixl Fixity { InfixlDecl $1 $2 }
+Declaration : StaDeclaration { StaDeclaration (staDeclLoc $1) $1 }
+
+StaDeclaration : prefix Fixity { PrefixDecl $1 $2 }
+               | infixl Fixity { InfixlDecl $1 $2 }
 
 {
 

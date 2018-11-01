@@ -256,10 +256,13 @@ nested_comment c1 c2 = go 1 =<< alexGetInput
 readBSL :: Read a => BSL.ByteString -> a
 readBSL = read . ASCII.unpack
 
-type AlexUserState = SymEnv
+data ParseMode = StaticParser
+               | DynamicParser
+
+type AlexUserState = (ParseMode, SymEnv)
 
 alexInitUserState :: AlexUserState
-alexInitUserState = mempty
+alexInitUserState = (DynamicParser, mempty)
 
 gets_alex :: (AlexState -> a) -> Alex a
 gets_alex f = Alex (Right . (id &&& f))

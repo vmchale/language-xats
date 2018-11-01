@@ -3,6 +3,9 @@
 This contains a parser, lexer, and pretty-printer for the
 [ATS3](https://github.com/githwxi/ATS-Xanadu) language.
 
+Right now the dependency analysis is working but the parser and pretty-printer
+are not.
+
 ## Contents
 
 Provided by [polyglot](https://github.com/vmchale/polyglot):
