@@ -17,6 +17,7 @@ module Language.XATS
     , lexXATS
     -- * Dependency analysis
     , getDeps
+    , getAll
     ) where
 
 import           Language.XATS.Dependency

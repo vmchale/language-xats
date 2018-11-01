@@ -49,6 +49,4 @@ getAll src = do
     level <- traverse getAll deps
     let rmdups = fmap head . group . sort
         next = rmdups (fold (deps : level))
-    pure $ if null level
-        then deps
-        else next
+    pure $ if null level then deps else next
