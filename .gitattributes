@@ -1,4 +1,4 @@
-test/data/* linguist-vendored
+test/deps/* linguist-vendored
 *.cpphs linguist-language=Haskell
 *.hsc2hs linguist-language=Haskell
 *.c2hs linguist-language=Haskell
