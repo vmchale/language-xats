@@ -7,4 +7,3 @@ datavtype list_vtype_int_vtbox(a: vtype+, int) =
 #staload "./file.sats"
 
 #symload "prelude/fixity.sats"
-
