@@ -166,6 +166,9 @@ data Token a = EOF { loc :: a }
              | TokKeyword { loc :: a, keyword :: Keyword }
              | TokSpecial { loc :: a, special :: Special }
 
+             | LineComment { loc :: a, comment :: BSL.ByteString }
+             | BlockComment { loc :: a, comment :: BSL.ByteString }
+
              deriving (Eq, Generic, NFData)
 
 instance Pretty Addendum where

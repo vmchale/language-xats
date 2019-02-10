@@ -20,6 +20,7 @@ import Control.Arrow ((&&&))
 import Control.DeepSeq (NFData)
 import qualified Data.ByteString.Lazy as BSL
 import qualified Data.ByteString.Lazy.Char8 as ASCII
+import Data.Functor (($>))
 import qualified Data.Text as T
 import Data.Text.Encoding (decodeUtf8)
 import GHC.Generics (Generic)
@@ -55,7 +56,7 @@ $identifier_char = [$alpha $digit \_ \' \$]
 tokens :-
     
     <0> $white+                  ;
-    <0> "//".*                   ;
+    <0> "//".*                   { tok (\p s -> alex $ LineComment p s) }
     <0> "(*"                     { \_ _ -> ml_nested_comment }
     <0> "/*"                     { \_ _ -> c_nested_comment }
     -- TODO: nested comments
@@ -227,11 +228,13 @@ c_nested_comment = nested_comment 47 47
 -- Taken from example by Simon Marlow.
 -- This handles nested comments
 nested_comment :: Word8 -> Word8 -> Alex (Token AlexPosn)
-nested_comment c1 c2 = go 1 =<< alexGetInput
+nested_comment c1 c2 = go 1 [] =<< alexGetInput
 
-    where go :: Int -> AlexInput -> Alex (Token AlexPosn)
-          go 0 input = alexSetInput input *> alexMonadScan
-          go n input =
+    where go :: Int -> [Word8] -> AlexInput -> Alex (Token AlexPosn)
+          go 0 cs input = do
+            alexSetInput input
+            BlockComment <$> get_pos <*> pure (BSL.pack cs)
+          go n cs input =
             case alexGetByte input of
                 Nothing -> err input
                 Just (c, input') ->
@@ -239,13 +242,13 @@ nested_comment c1 c2 = go 1 =<< alexGetInput
                         42 ->
                             case alexGetByte input' of
                                 Nothing -> err input'
-                                Just (c',input'') | c' == c2 -> go (n-1) input''
-                                Just (_,input'') -> go n input''
+                                Just (c',input'') | c' == c2 -> go (n-1) (c:cs) input''
+                                Just (_,input'') -> go n (c:cs) input''
                         _ | c == c1 ->
                             case alexGetByte input' of
                                 Nothing -> err input'
-                                Just (c',input'') -> go (addLevel c' $ n) input''
-                        _ -> go n input'
+                                Just (c',input'') -> go (addLevel c' $ n) (c:cs) input''
+                        _ -> go n (c:cs) input'
 
           addLevel c' = if c'== 42 then (+1) else id
 
