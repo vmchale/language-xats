@@ -233,7 +233,7 @@ nested_comment c1 c2 = go 1 [] =<< alexGetInput
     where go :: Int -> [Word8] -> AlexInput -> Alex (Token AlexPosn)
           go 0 cs input = do
             alexSetInput input
-            BlockComment <$> get_pos <*> pure (BSL.pack cs)
+            BlockComment <$> get_pos <*> pure (BSL.reverse (BSL.pack cs))
           go n cs input =
             case alexGetByte input of
                 Nothing -> err input
