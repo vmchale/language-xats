@@ -71,7 +71,8 @@ some(p)
 parens(p)
     : lparen p rparen { $2 }
 
-XATS : many(Declaration) { XATS $1 }
+XATS :: { XATS AlexPosn }
+     : many(Declaration) { XATS $1 }
 
 -- TODO: this should modify the internal user state.
 FixityRes : intLit { IntFix (loc $1) (fromIntegral $ intStr $1) }

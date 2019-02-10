@@ -41,7 +41,7 @@ data FixityRes a = IntFix a Word8
                  | SymbolFix a BSL.ByteString
                  -- TODO: handle https://github.com/githwxi/ATS-Xanadu/blob/master/prelude/fixity.sats#L136
                  deriving (Eq, Generic, NFData)
-               -- TODO: parens? https://github.com/githwxi/ATS-Xanadu/blob/master/srcgen/xats/TEST/DATA/syntax_sta.sats#L111
+                 -- TODO: parens? https://github.com/githwxi/ATS-Xanadu/blob/master/srcgen/xats/TEST/DATA/syntax_sta.sats#L111
 
 data FixityD a = FixityD (FixityRes a) (NonEmpty (FixityNode a))
               deriving (Eq, Generic, NFData)
