@@ -13,7 +13,7 @@ main :: IO ()
 main =
     defaultMain [ bgroup "parse"
                       [ bench "parse" $ nf parse tinyProgram ]
-                , bgroup "dependencie"
+                , bgroup "dependencies"
                       [ bench "getDeps" $ nfIO (getDeps "test/deps/file.dats")
                       , bench "getAll" $ nfIO (getAll "test/deps/file.dats")
                       ]
