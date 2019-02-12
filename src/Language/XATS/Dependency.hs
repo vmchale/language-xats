@@ -33,13 +33,17 @@ prErr = (*> exitFailure) . putStrLn
 
 extractDeps :: BSL.ByteString
             -> Either LexerError [T.Text]
-extractDeps = fmap extractTokDeps . lexXATS
+extractDeps = fmap (extractTokDeps . filter (not . isComment)) . lexXATS
     where extractTokDeps []                                              = []
           extractTokDeps (TokKeyword _ Include : TokString _ str : toks) = str : extractTokDeps toks
           extractTokDeps (TokKeyword _ Staload : TokString _ str : toks) = str : extractTokDeps toks
           extractTokDeps (TokKeyword _ Dynload : TokString _ str : toks) = str : extractTokDeps toks
           extractTokDeps (TokKeyword _ Symload : TokString _ str : toks) = str : extractTokDeps toks
           extractTokDeps (_ : toks)                                      = extractTokDeps toks
+
+          isComment LineComment{}  = True
+          isComment BlockComment{} = True
+          isComment _              = False
 
 -- | Get dependencies recursively.
 getAll :: FilePath
