@@ -5,16 +5,16 @@ module Language.XATS.Dependency ( getDeps
                                 , getAll
                                 ) where
 
-import           Control.Monad            (filterM)
-import qualified Data.ByteString.Lazy     as BSL
-import           Data.Foldable            (fold)
-import           Data.List                (group, sort)
-import qualified Data.Text                as T
+import           Control.Monad             (filterM)
+import qualified Data.ByteString.Lazy      as BSL
+import           Data.Containers.ListUtils (nubOrd)
+import           Data.Foldable             (fold)
+import qualified Data.Text                 as T
 import           Language.XATS.Lexer
 import           Language.XATS.Type.Lexer
-import           System.Directory         (doesFileExist)
-import           System.Exit              (exitFailure)
-import           System.FilePath          (takeDirectory)
+import           System.Directory          (doesFileExist)
+import           System.Exit               (exitFailure)
+import           System.FilePath           (takeDirectory)
 
 -- | Get immediate dependencies of a file
 getDeps :: FilePath
@@ -51,6 +51,5 @@ getAll :: FilePath
 getAll src = do
     deps <- getDeps src
     level <- traverse getAll deps
-    let rmdups = fmap head . group . sort
-        next = rmdups (fold (deps : level))
+    let next = nubOrd (fold (deps : level))
     pure $ if null level then deps else next
