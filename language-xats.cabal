@@ -6,7 +6,6 @@ license-file: LICENSE
 copyright: Copyright: (c) 2018-2019 Vanessa McHale
 maintainer: vanessa.mchale@iohk.io
 author: Vanessa McHale
-homepage: https://github.com/vmchale/language-xats#readme
 synopsis: Language library for ATS3 Xanadu
 description:
     Lexer, parser, and pretty-printer for the ATS3 language
