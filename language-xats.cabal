@@ -52,16 +52,16 @@ library
         transformers -any,
         prettyprinter -any,
         deepseq -any,
-        containers >= 0.6,
-        directory,
-        filepath,
-        text
+        containers >=0.6,
+        directory -any,
+        filepath -any,
+        text -any
 
     if !impl(ghc >=8.0)
         build-depends:
             semigroups -any
 
-    if (flag(development))
+    if flag(development)
         ghc-options: -Werror
 
     if impl(ghc >=8.0)
