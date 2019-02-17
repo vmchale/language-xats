@@ -1,3 +1,4 @@
+-- vim: syntax=hspec
 {-# LANGUAGE OverloadedStrings #-}
 
 import           Language.XATS
