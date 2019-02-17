@@ -37,6 +37,8 @@ library
         Language.XATS.Lexer
         Language.XATS.Type.Lexer
         Language.XATS.Type.SymEnv
+        Language.XATS.Type.Syntax
+        Language.XATS.Type.Syntax.Static
         Language.XATS.Rewrite
         Language.XATS.Dependency
     default-language: Haskell2010
