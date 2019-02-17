@@ -96,7 +96,6 @@ data ParseError a = Unexpected (Token a)
                   | LexErr String
                   deriving (Generic, NFData)
 
--- should have a state monad for fixity
 type Parse = ExceptT (ParseError AlexPosn) Alex
 
 parse :: BSL.ByteString -> Either (ParseError AlexPosn) (XATS AlexPosn)

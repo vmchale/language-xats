@@ -42,7 +42,7 @@ library
     default-language: Haskell2010
     other-extensions: OverloadedStrings StandaloneDeriving
                       DeriveGeneric DeriveAnyClass
-    ghc-options: -Wall
+    ghc-options: -Wall -O2
     build-depends:
         base >=4.3 && <5,
         bytestring -any,
