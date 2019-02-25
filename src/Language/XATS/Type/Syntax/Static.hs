@@ -3,6 +3,7 @@ module Language.XATS.Type.Syntax.Static ( StaExp (..)
 
 import qualified Data.ByteString.Lazy      as BSL
 import           Language.XATS.Type.Common
+import           Language.XATS.Type.Lexer
 
 -- | Defined
 -- [here](https://github.com/githwxi/ATS-Xanadu/blob/master/srcgen/xats/SATS/staexp0.sats#L741)
