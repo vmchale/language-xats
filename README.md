@@ -1,5 +1,11 @@
 # language-xats
 
+[![Build Status](https://travis-ci.org/vmchale/language-xats.svg?branch=master)](https://travis-ci.org/vmchale/language-xats)
+[![Windows build status](https://ci.appveyor.com/api/projects/status/github/vmchale/language-xats?svg=true)](https://ci.appveyor.com/project/vmchale/language-xats)
+[![Hackage CI](https://matrix.hackage.haskell.org/api/v2/packages/language-xats/badge)](https://matrix.hackage.haskell.org/package/language-xats)
+[![Hackage](https://img.shields.io/hackage/v/language-xats.svg)](http://hackage.haskell.org/package/language-xats)
+[![Dependencies of latest version on Hackage](https://img.shields.io/hackage-deps/v/language-xats.svg)](https://hackage.haskell.org/package/language-xats)
+
 This contains a parser, lexer, and pretty-printer for the
 [ATS3](https://github.com/githwxi/ATS-Xanadu) language.
 
