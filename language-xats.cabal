@@ -37,6 +37,7 @@ library
         Language.XATS.Lexer
         Language.XATS.Type.Lexer
         Language.XATS.Type.SymEnv
+        Language.XATS.Type.Common
         Language.XATS.Type.Syntax
         Language.XATS.Type.Syntax.Static
         Language.XATS.Rewrite
