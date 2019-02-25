@@ -8,8 +8,6 @@ module Language.XATS.Type.Syntax ( StaDeclSyn (..)
                                  , DynDecls
                                  ) where
 
-import qualified Data.ByteString.Lazy as BSL
-
 type StaDecls a = [StaDeclSyn a]
 
 type DynDecls a = [DynDeclSyn a]

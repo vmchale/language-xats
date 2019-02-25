@@ -6,7 +6,12 @@ module Language.XATS.Type.Common ( DeclKind (..)
                                  , FunKind (..)
                                  , ImpKind (..)
                                  , FunClosure (..)
+                                 , Ident (..)
                                  ) where
+
+import           Language.XATS.Type.Lexer
+
+data Ident a = Ident a (Token a)
 
 -- | Defined
 -- [here](https://github.com/githwxi/ATS-Xanadu/blob/master/srcgen/xats/SATS/basics.sats#L141)
