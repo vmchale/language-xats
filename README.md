@@ -6,6 +6,11 @@ This contains a parser, lexer, and pretty-printer for the
 Right now the dependency analysis is working but the parser and pretty-printer
 are not.
 
+## Building
+
+This project is built using [cabal](https://www.haskell.org/cabal/). You should
+also have [GHC](https://www.haskell.org/ghc/download.html) installed.
+
 ## Contents
 
 Provided by [polyglot](https://github.com/vmchale/polyglot):
